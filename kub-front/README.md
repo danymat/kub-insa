@@ -1,7 +1,15 @@
-# Vue 3 + Vite
+#Instructions pour tester 
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Pour demarrer le serveur (port 3001 ou port defini dans la variable d'environnement PORT)
+npm run dev
 
-## Recommended IDE Setup
+on y accede donc sur le navigateur avec http://localhost:3001
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+(pour docker j'utilise l'extension vs code je sais pas ce que fait exactement les commandes, il les écris tout seul)
+pour docker on build l'image à partir du fichier :
+
+docker build --pull --rm -f "kub-front\dockerfile" -t kub-front:latest "kub-front"
+
+et pour démarrer :
+
+docker run --rm -it  -p 8080:8080/tcp kub-front:latest
