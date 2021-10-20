@@ -1,0 +1,39 @@
+services:
+  database:
+    image: redis
+    volumes:
+      - /tmp/database:/data
+    networks:
+      - database
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - "6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    networks:
+      - rabbitmq
+    expose:
+      - 5672
+      - 15672
+    volumes:
+      - /tmp/rabbitmq/data/:/var/lib/rabbitmq
+      - /tmp/rabbitmq/log/:/var/log/rabbitmq
+
+  frontend:
+    build: ./frontend
+    environment: 
+      - PORT=8080
+    expose:
+      - 8080
+    depends_on:
+      - database
+      - rabbitmq
+    networks:
+      - database
+      - rabbitmq
+
+networks:
+  database: {}
+  rabbitmq: {}
