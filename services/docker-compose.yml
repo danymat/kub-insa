@@ -21,19 +21,29 @@ services:
       - /tmp/rabbitmq/data/:/var/lib/rabbitmq
       - /tmp/rabbitmq/log/:/var/log/rabbitmq
 
+#   backend:
+#     build: ./backend
+#     networks:
+#       - database
+#       - rabbitmq
+# 
+
   frontend:
     build: ./frontend
     environment: 
       - PORT=8080
     expose:
       - 8080
+    ports:
+      - "8080:8080"
     depends_on:
       - database
       - rabbitmq
     networks:
-      - database
-      - rabbitmq
+      - default
 
 networks:
+  default:
+    driver: bridge
   database: {}
   rabbitmq: {}
