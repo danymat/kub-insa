@@ -1,13 +1,20 @@
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 
 var msg_text = ref("")
 
 function sendmsg(event) {
-  // send the msg to the backend
-  alert(msg_text.value)
+  axios.post('http://localhost:3000/msg', {
+    message: msg_text.value
+  })
+  .then((reponse) => {
+    alert(reponse.data)
+  })
+  .catch((error) => {
+    alert(error)
+  })
 }
-
 </script>
 
 <template>
