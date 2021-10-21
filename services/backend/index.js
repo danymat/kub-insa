@@ -5,6 +5,14 @@ const port = process.env.PORT || 3000
 const redis = require('redis')
 app.use(cors())
 
+app.use(
+  express.urlencoded({
+    extended: true
+  })
+)
+
+app.use(express.json())
+
 const client = redis.createClient({
   socket: {host:'172.18.0.2'}
 })
