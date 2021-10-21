@@ -6,8 +6,6 @@ services:
     networks:
       - database
     command: redis-server --save 60 1 --loglevel warning
-    ports:
-      - "6379"
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
