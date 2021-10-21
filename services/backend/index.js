@@ -30,7 +30,7 @@ client.connect().then(() => {
   app.post('/messages', async (req, res) => {
     console.log(req)
     console.log(req.body)
-    let message = req.body.value
+    let message = req.body.message
     await client.hSet('messages', '10', message)
     res.send("Message dans la DB")
   })
