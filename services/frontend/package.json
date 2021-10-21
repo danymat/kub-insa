@@ -1,5 +1,5 @@
 {
-  "name": "kub-front",
+  "name": "frontend",
   "version": "0.0.0",
   "scripts": {
     "start": "vite",
@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.23.0",
     "vue": "^3.2.16"
   },
   "devDependencies": {

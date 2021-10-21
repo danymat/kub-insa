@@ -1,19 +1,25 @@
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 
 var messages = ref([])
 
 function getmsg(event) {
-  // get the messages from the backend
-  alert("recuperation messages")
+  axios.get('http://localhost:8081/messages')
+  .then((res) => {
+    messages.value = res.data
+  })
+  .catch((error) => {
+    alert(error)
+  })
 }
 </script>
 
 <template>
   <div>
     <ul id="list_msg">
-      <li v-for="msg in messages.value" :key="msg.text">
-        {{ msg }}
+      <li v-for="(key, message) in messages" :key="key">
+        {{ key }} : {{ message }}
       </li>
     </ul>
     <button v-on:click="getmsg">Recuperer les messages de la DB</button>
