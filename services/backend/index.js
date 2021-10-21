@@ -18,6 +18,13 @@ client.connect().then(() => {
   app.get('/', (req, res) => {
     res.send('Hello World!')
   })
+
+  app.post('/messages', async (req, res) => {
+    console.log(req.params)
+    let message = req.params.value
+    await client.hSet('messages', '10', message)
+    res.send("Message dans la DB")
+  })
   
   app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

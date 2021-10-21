@@ -5,7 +5,8 @@ import axios from 'axios'
 var msg_text = ref("")
 
 function sendmsg(event) {
-  axios.post('http://localhost:3000/msg', {
+  console.log(msg_text)
+  axios.post('http://localhost:8081/messages', {
     message: msg_text.value
   })
   .then((reponse) => {
