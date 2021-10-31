@@ -16,8 +16,8 @@ services:
       - 5672
       - 15672
     volumes:
-      - /tmp/rabbitmq/data/:/var/lib/rabbitmq
-      - /tmp/rabbitmq/log/:/var/log/rabbitmq
+      - rabbbitmq_data:/var/lib/rabbitmq
+      - rabbbitmq_logs:/var/log/rabbitmq
 
   backend:
     build: ./backend
@@ -37,7 +37,7 @@ services:
 
   frontend:
     build: ./frontend
-    environment: 
+    environment:
       - PORT=8080
     expose:
       - 8080
@@ -53,3 +53,7 @@ networks:
     driver: bridge
   database: {}
   rabbitmq: {}
+
+volumes:
+  rabbbitmq_data:
+  rabbbitmq_logs:
