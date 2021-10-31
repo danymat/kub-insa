@@ -15,7 +15,7 @@ app.use(
 app.use(express.json())
 
 const client = redis.createClient({
-    socket: { host: '172.18.0.2' }
+    socket: { host: 'services-database-1' }
 })
 
 client.on('error', (err) => {
@@ -29,7 +29,6 @@ client.connect().then(() => {
     })
 
     app.post('/messages', async (req, res) => {
-        console.log(req)
         console.log(req.body)
         let message = req.body.message
         await client.hSet('messages', 'key', message)
