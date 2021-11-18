@@ -15,9 +15,16 @@ services:
     expose:
       - 5672
       - 15672
+    ports:
+      - "15672:15672"
     volumes:
       - rabbbitmq_data:/var/lib/rabbitmq
       - rabbbitmq_logs:/var/log/rabbitmq
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+      interval: 5s
+      timeout: 15s
+      retries: 1
 
   backend:
     build: ./backend
@@ -34,6 +41,7 @@ services:
     depends_on:
       - database
       - rabbitmq
+    restart: on-failure
 
   frontend:
     build: ./frontend
