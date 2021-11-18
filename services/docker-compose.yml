@@ -1,4 +1,16 @@
 services:
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.15.2
+    ports:
+      - "9200:9200"
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+      - ./logstash/logstash.conf:/etc/logstash/conf.d/logstash.conf
+    networks:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+
   database:
     image: redis
     volumes:

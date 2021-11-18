@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const redis = require('redis')
-const aqmp = require('amqplib/callback_api')
+const amqp = require('amqplib/callback_api')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -51,7 +51,7 @@ function api(channel) {
 }
 
 
-aqmp.connect('amqp://rabbitmq', (err, connexion) => {
+amqp.connect('amqp://rabbitmq', (err, connexion) => {
     if (err) {
         console.log("Error connecting to rabbitmq", err)
         process.exit(1)
@@ -66,7 +66,7 @@ aqmp.connect('amqp://rabbitmq', (err, connexion) => {
         ch.assertQueue(queue, {
             durable: true
         });
-
+        
         api(ch)
 
     })
