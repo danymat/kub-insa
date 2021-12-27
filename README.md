@@ -36,7 +36,7 @@ Pour avoir accès au front et back depuis le navigateur il nous faut installer i
 ingress sert a transmettre les requetes au bon service
 
 ```bash
-kubectl apply -f ingress-conf.yam
+kubectl apply -f ingress-conf.yaml
 ```
 
 pour faire fonctionner ingress au mieux on a besoin d'un ingress controller
