@@ -59,3 +59,18 @@ on ajoute donc :
 127.0.0.1 front.kub-insa.com
 127.0.0.1 back.kub-insa.com
 ```
+
+### Kubernetes Dashboard
+
+Pour utiliser dashboard, voici les étapes:
+
+- Télécharger dashboard et le déployer: `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml`
+- Appliquer l'utilisateur: `kubectl apply -f dashboard-admin.yaml`
+- Ouvrir un proxy: `kubectl proxy`
+- Le dashboard sera accessible [ici](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)
+
+Pour avoir le token, faire:
+
+```bash
+kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
+```
