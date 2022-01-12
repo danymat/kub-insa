@@ -6,7 +6,7 @@ var msg_text = ref("")
 
 function sendmsg(event) {
   console.log(msg_text)
-  axios.post('http://localhost:8081/messages', {
+  axios.post('http://backend-service/messages', {
     message: msg_text.value
   })
   .then((reponse) => {

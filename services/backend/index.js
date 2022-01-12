@@ -16,7 +16,7 @@ app.use(
 app.use(express.json())
 
 const client = redis.createClient({
-    socket: { host: 'services-database-1' }
+    socket: { host: 'redis-service' }
 })
 
 function api(channel) {
@@ -51,12 +51,12 @@ function api(channel) {
 }
 
 
-amqp.connect('amqp://rabbitmq', (err, connexion) => {
+amqp.connect('amqp://rabbitmq-service', (err, connexion) => {
     if (err) {
         console.log("Error connecting to rabbitmq", err)
         process.exit(1)
     }
-
+    console.log("connected to rabbitmq")
     connexion.createChannel((err, ch) => {
         if (err) {
             console.log("Error connecting to rabbitmq channel", err)
