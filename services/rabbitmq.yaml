@@ -47,5 +47,5 @@ spec:
     targetPort: 5672
   - name: gui
     protocol: TCP
-    port: 15672
+    port: 80
     targetPort: 15672

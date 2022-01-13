@@ -5,7 +5,7 @@ import axios from 'axios'
 var messages = ref([])
 
 function getmsg(event) {
-  axios.get('http://backend-service/messages')
+  axios.get('http://back.kub-insa.com:8080/messages')
   .then((res) => {
     messages.value = res.data
   })

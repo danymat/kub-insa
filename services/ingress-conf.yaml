@@ -24,3 +24,13 @@ spec:
             name: backend-service
             port:
               number: 80
+  - host: rabbit.kub-insa.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: rabbitmq-service
+            port:
+              number: 15672
