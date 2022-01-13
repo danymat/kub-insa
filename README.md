@@ -50,7 +50,7 @@ kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 
 
 (cette commande est bloquante on ne doit pas fermer le terminal si on veut acceder a l appli)
 
-url : front.kub-insa.com, back.kub-insa.com
+url : front.kub-insa.com pour le front end, back.kub-insa.com pour le backend et rabbit.kub-insa.com pour la gui rabbitmq
 il faut ajouter les url au fichier hosts (linux: /etc/hosts, windows: C:\Windows\System32\drivers\etc\hosts)
 on ajoute donc :
 
@@ -58,6 +58,7 @@ on ajoute donc :
 # kub-insa
 127.0.0.1 front.kub-insa.com
 127.0.0.1 back.kub-insa.com
+127.0.0.1 rabbit.kub-insa.com
 ```
 
 ### Kubernetes Dashboard
