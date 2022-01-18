@@ -43,6 +43,11 @@ pour faire fonctionner ingress au mieux on a besoin d'un ingress controller
 pour installer nginx ingress controller voir https://kubernetes.github.io/ingress-nginx/deploy/
 (`kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml`)
 
+et il faut ajouter ingress a minikube : 
+```bash
+minikube addons enable ingress
+```
+
 et ensuite il faut forwarder les requetes au bon port en interne
 ```bash
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
