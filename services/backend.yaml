@@ -28,10 +28,10 @@ spec:
       initContainers:
       - name: init-rabbitmq
         image: busybox:1.28
-        command: ['sh', '-c', "until nslookup rabbitmq-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de rabbitmq; sleep 2; done"]
+        command: ['sh', '-c', "until nc -w 2 -v rabbitmq-service 5672 </dev/null; do echo en attente de rabbitmq; sleep 2; done"]
       - name: init-redis
         image: busybox:1.28
-        command: ['sh', '-c', "until nslookup redis-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de redis; sleep 2; done"]
+        command: ['sh', '-c', "until nc -w 2 -v redis-service 6379 </dev/null; do echo en attente de redis; sleep 2; done"]
       restartPolicy: Always
 ---
 
