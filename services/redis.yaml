@@ -51,7 +51,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: redis-claim
 spec:
-  storageClassName: manual
+  storageClassName: redis
   resources:
     requests:
       storage: 5Gi

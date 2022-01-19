@@ -13,16 +13,20 @@ spec:
         app: rabbitmq
     spec:
       volumes:
-        - name: rabbbitmq-data
-        - name: rabbbitmq-logs
+        - name: rabbitmq-data-storage
+          persistentVolumeClaim:
+            claimName: rabbitmq-data-claim
+        - name: rabbitmq-logs-storage
+          persistentVolumeClaim:
+            claimName: rabbitmq-logs-claim
       containers:
       - name: rabbitmq
         image: rabbitmq:3-management-alpine
         volumeMounts:
         - mountPath: /var/lib/rabbitmq
-          name: rabbbitmq-data
+          name: rabbitmq-data-storage
         - mountPath: /var/log/rabbitmq
-          name: rabbbitmq-logs
+          name: rabbitmq-logs-storage
         resources:
           limits:
             memory: "246Mi"
@@ -50,3 +54,32 @@ spec:
     protocol: TCP
     port: 80
     targetPort: 15672
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rabbitmq-logs-claim
+spec:
+  storageClassName: rabbitmq-logs
+  resources:
+    requests:
+      storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rabbitmq-data-claim
+spec:
+  storageClassName: rabbitmq-data
+  resources:
+    requests:
+      storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
