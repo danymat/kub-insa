@@ -25,8 +25,8 @@ spec:
   hostPath:
     path: /data/rabbitmq-logs-volume/
   storageClassName: rabbitmq-logs
+---
 apiVersion: v1
-
 kind: PersistentVolume
 metadata:
   name: rabbitmq-data-volume
