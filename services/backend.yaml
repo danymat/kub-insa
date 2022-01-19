@@ -29,10 +29,10 @@ spec:
         - name: PORT
           value: "8080"
       initContainers:
-      - name: init-myservice
+      - name: init-rabbitmq
         image: busybox:1.28
         command: ['sh', '-c', "until nslookup rabbitmq-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de rabbitmq; sleep 2; done"]
-      - name: init-mydb
+      - name: init-redis
         image: busybox:1.28
         command: ['sh', '-c', "until nslookup redis-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de redis; sleep 2; done"]
       restartPolicy: Always
