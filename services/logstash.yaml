@@ -19,7 +19,7 @@ spec:
         resources:
           limits:
             memory: "512Mi"
-            cpu: "500m"
+            cpu: "300m"
         command: ["logstash"]
         args: ["-f", "/etc/logstash/conf.d/logstash.conf"]
         ports:

@@ -21,7 +21,7 @@ spec:
         resources:
           limits:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "200m"
         command: ["redis-server"]
         args: ["--save", "60", "1", "--loglevel", "warning"]
         volumeMounts:
