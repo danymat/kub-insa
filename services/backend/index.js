@@ -38,6 +38,7 @@ function api(channel) {
             let message = req.body.message
             await client.hSet('messages', 'key', message)
             channel.sendToQueue(queue, Buffer.from("new_message"))
+            console.log("msg: "+message)
             res.send("Message dans la DB")
         })
 
@@ -45,6 +46,7 @@ function api(channel) {
         app.get('/messages', async (_, res) => {
             let messages = await client.hGetAll('messages')
             channel.sendToQueue(queue, Buffer.from("get_messages"))
+            console.log("get_msg: ")
             res.send(messages)
         })
     })

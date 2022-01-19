@@ -29,6 +29,7 @@ spec:
           name: redis-database
         ports:
         - containerPort: 6379
+      priorityClassName: high-priority
 ---
 
 apiVersion: v1

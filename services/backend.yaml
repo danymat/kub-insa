@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: backend
@@ -17,14 +17,24 @@ spec:
         image: services_backend:latest
         imagePullPolicy: IfNotPresent
         resources:
-          limits:
+          requests:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "400m"
+          limits:
+            memory: "256Mi"
+            cpu: "600m"
         ports:
         - containerPort: 8080
         env:
         - name: PORT
           value: "8080"
+      initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup rabbitmq-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de rabbitmq; sleep 2; done"]
+      - name: init-mydb
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup redis-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de redis; sleep 2; done"]
       restartPolicy: Always
 ---
 
