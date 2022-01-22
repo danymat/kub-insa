@@ -12,21 +12,21 @@ spec:
       labels:
         app: rabbitmq
     spec:
-      volumes:
-        - name: rabbitmq-data-storage
-          persistentVolumeClaim:
-            claimName: rabbitmq-data-claim
-        - name: rabbitmq-logs-storage
-          persistentVolumeClaim:
-            claimName: rabbitmq-logs-claim
+      #volumes:
+      #  - name: rabbitmq-data-storage
+      #    persistentVolumeClaim:
+      #      claimName: rabbitmq-data-claim
+      #  - name: rabbitmq-logs-storage
+      #    persistentVolumeClaim:
+      #      claimName: rabbitmq-logs-claim
       containers:
       - name: rabbitmq
         image: rabbitmq:3-management-alpine
-        volumeMounts:
-        - mountPath: /var/lib/rabbitmq
-          name: rabbitmq-data-storage
-        - mountPath: /var/log/rabbitmq
-          name: rabbitmq-logs-storage
+        #volumeMounts:
+        #- mountPath: /var/lib/rabbitmq
+        #  name: rabbitmq-data-storage
+        #- mountPath: /var/log/rabbitmq
+        #  name: rabbitmq-logs-storage
         resources:
           limits:
             memory: "246Mi"

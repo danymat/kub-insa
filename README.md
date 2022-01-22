@@ -66,7 +66,13 @@ on ajoute donc :
 127.0.0.1 rabbit.kub-insa.com
 ```
 
-### Kubernetes Dashboard
+### Monitoring
+
+Il y a plusieurs possibilités pour le monitoring on peut soit utiliser dashboard qui affiche une liste des ressources 
+mais ne permet pas d'afficher l'utilisations des ressources (%cpu, ram etc...)
+sinon on peut utiliser prometheus avec grafana, une solution de monitoring plus performantes
+
+## Dashboard
 
 Pour utiliser dashboard, voici les étapes:
 
@@ -80,3 +86,29 @@ Pour avoir le token, faire:
 ```bash
 kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
 ```
+
+## Prometheus
+
+Le tutoriel est ici : https://blog.marcnuri.com/prometheus-grafana-setup-minikube
+Cependant les noms de repo et des charts helm ont changé il faut utiliser ceux la :
+
+Prometheus
+
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm search repo prometheus-community
+helm install prometheus prometheus-community/prometheus
+kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np
+```
+
+Grafana
+
+```bash
+helm repo add grafana https://grafana.github.io/helm-charts
+helm search repo grafana
+helm install grafana grafana/grafana
+kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np
+```
+
+Le dashboard proposé dans le tutoriel n'est pas forcement à jour avec les noms de metriques.
+On peut importer le dashboard.json au lieu de celui proposé dans le tutoriel (c'est le même avec des corrections)
