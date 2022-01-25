@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logstash-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logstash
+  template:
+    metadata:
+      labels:
+        app: logstash
+    spec:
+      containers:
+      - name: logstash
+        image: services_logstash:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "300m"
+        command: ["logstash"]
+        args: ["-f", "/etc/logstash/conf.d/logstash.conf"]
+        ports:
+        - containerPort: 9200
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: logstash-service
+spec:
+  selector:
+    app: logstash
+  ports:
+  - port: 9200
+    targetPort: 9200

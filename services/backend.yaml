@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: services_backend:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "300m"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
+      initContainers:
+      - name: init-rabbitmq
+        image: busybox:1.28
+        command: ['sh', '-c', "until nc -w 2 -v rabbitmq-service 5672 </dev/null; do echo en attente de rabbitmq; sleep 2; done"]
+      - name: init-redis
+        image: busybox:1.28
+        command: ['sh', '-c', "until nc -w 2 -v redis-service 6379 </dev/null; do echo en attente de redis; sleep 2; done"]
+      restartPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: NodePort
+  selector:
+    app: backend
+  ports:
+  - port: 80
+    targetPort: 8080
