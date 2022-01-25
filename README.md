@@ -4,7 +4,7 @@
 
 prerequis installer `minikube` et `kubectl`
 
-on demarre minikube avec `minikube start --driver docker`
+on demarre minikube avec `minikube start --driver docker --mount --mount-string="/path/to/host:/data"`
 
 `minikube docker-env` permet d'associer le bon repository docker au terminal -> faire les docker build dans ce terminal.
 

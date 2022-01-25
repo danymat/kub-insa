@@ -10,32 +10,3 @@ spec:
   hostPath:
     path: /data/redis-volume/
   storageClassName: redis
-
----
-
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: rabbitmq-logs-volume
-spec:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 5Gi
-  hostPath:
-    path: /data/rabbitmq-logs-volume/
-  storageClassName: rabbitmq-logs
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: rabbitmq-data-volume
-spec:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 5Gi
-  hostPath:
-    path: /data/rabbitmq-data-volume/
-  storageClassName: rabbitmq-data
-
