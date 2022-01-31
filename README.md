@@ -108,6 +108,8 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm search repo grafana
 helm install grafana grafana/grafana
 kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np
+
+minikube service grafana-np
 ```
 
 Le dashboard proposé dans le tutoriel n'est pas forcement à jour avec les noms de metriques.
